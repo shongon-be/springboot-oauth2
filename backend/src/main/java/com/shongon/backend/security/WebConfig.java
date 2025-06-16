@@ -20,6 +20,5 @@ public class WebConfig {
                         .allowCredentials(true);
             }
         };
-    }
-    
+    } 
 }
