@@ -21,7 +21,7 @@ const Home = () => {
 
     return(
         <div style={centerStyle}>
-            <h2>Welcome to the Oath2 Demo</h2>
+            <h2>Welcome to the Oauth2 Demo</h2>
             <button onClick={googleLogin}
                     style={{margin:'10px', fontSize: '16px', padding: '10px'}}>
                 <FcGoogle/> Login with Google

@@ -17,20 +17,41 @@ const Dashboard = () => {
             }
         })
 }, []);
+
+    const getUserName = () => {
+        if (user.name && user.name !== null) {
+            return user.name;
+        }
+        return user.login || 'N/A';
+    };
+
+    const getUserEmail = () => {
+        if (user.email && user.email !== null) {
+            return user.email;
+        }
+        return 'Email not available (GitHub private setting)';
+    };
+
+    const getUserPicture = () => {
+        return user.picture || user.avatar_url;
+    };
+
+
     return (
         <div>
         <h2>Dashboard</h2>
         {user ? (
             <div>
                 <p>
-                    <strong>Name: </strong> {user.name}{" "}
+                    <strong>Name: </strong> {getUserName()}{" "}
                 </p>
                 <p>
-                    <strong>Email: </strong> {user.email}{" "}
+                    <strong>Email: </strong> {getUserEmail()}{" "}
                 </p>
-                {user.picture && <img src={user.picture}
+                {getUserPicture() && <img src={getUserPicture()}
                     alt="User Profile"
                     referrerPolicy="no-referrer"
+                    style={{width: '100px', height: '100px', borderRadius: '50%'}}
                 />}
             </div>
         ) : (
@@ -38,6 +59,6 @@ const Dashboard = () => {
         )}
         </div>
     );
-    };
+};
 
 export default Dashboard;
