@@ -82,7 +82,7 @@ root/
 - ✅ Modular project structure separating frontend and backend.
 
 ## Requirements
-- Node.js (for React frontend).
+- Node.js 14 (for React frontend).
 
 - Java 11 (for Spring Boot backend).
   
@@ -95,6 +95,18 @@ root/
 
     (⚠️Remember to add it to `.gitignore`)
 
+
+- Access to https://console.cloud.google.com/ to setup and create Google Oauth2 credentials.
+  - Setup 'Oauth consent screen'
+  - Create `OAuth 2.0 Client IDs` in 'crendentials'.
+
+![Google-console](/docs/ggconsole.png)
+- In GitHub, "Settings -> Developer Settings -> OAuth Apps" to setup and create GitHub Oauth2 credentials.
+  - Setup application.
+  - Create cient secrets.
+
+![GitHub-application-1](/docs/ghoauth2.png)
+![GitHub-application-2](/docs/ghoauth2-1.png)
 - Create a `.env` file:
 
 ```.env
@@ -103,10 +115,25 @@ GOOGLE_CLIENT_SECRET=your_google_client_secret
 GITHUB_CLIENT_ID=your_github_client_id
 GITHUB_CLIENT_SECRET=your_github_client_secret
 ```
+   then add `DotEnvConfig.java`:
 
-- Access to https://console.cloud.google.com/ to setup and create Google Oauth2 credentials.
+```
+@Configuration
+@PropertySource("file:.env")
+public class DotEnvConfig {
+}
+```
+   and add `dependencies` in `pom.xml`:
 
-- In GitHub, "Settings -> Developer Settings -> OAuth Apps" to setup and create GitHub Oauth2 credentials.
+```
+<!-- DotEnv -->
+<dependency>
+  <groupId>me.paulschwarz</groupId>
+  <artifactId>spring-dotenv</artifactId>
+  <version>2.5.4</version>
+</dependency>
+```
+   to run `.env` in Spring Boot.
 
 - Then you can bind them via `application.yml` like:
 
@@ -151,4 +178,7 @@ spring:
 - After login, access tokens are used to authenticate requests between frontend and backend.
 
 ## Resources
-[Complete OAuth2 Course with Spring Boot & React | GitHub & Google Integration Step By Step Tutorial - EmbarkX](https://www.youtube.com/watch?v=JUOSHhbbBOY)
+- [Complete OAuth2 Course with Spring Boot & React | GitHub & Google Integration Step By Step Tutorial - EmbarkX](https://www.youtube.com/watch?v=JUOSHhbbBOY)
+- [Google Cloud console](https://console.cloud.google.com/)
+- [Scopes for Oauth2 Apps - GitHub docs](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps)
+- [React-Icons](https://react-icons.github.io/react-icons/)
