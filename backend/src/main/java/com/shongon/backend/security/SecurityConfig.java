@@ -15,14 +15,18 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(authorizeRequest -> authorizeRequest.anyRequest().authenticated())
-                .sessionManagement(session -> 
-                session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                .authorizeHttpRequests(authorizeRequest -> authorizeRequest
+                    .requestMatchers("/swagger-ui/**","/v3/api-docs/**", "/swagger-ui.html").permitAll()
+                    .anyRequest().authenticated()
+                )
+                .sessionManagement(session -> session
+                    .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                     .maximumSessions(1)
                 )
-                .oauth2Login(oauth2 -> 
-                    oauth2.defaultSuccessUrl("http://localhost:3000/dashboard", true)
-                        .failureUrl("/login?error=true"));
+                .oauth2Login(oauth2 -> oauth2
+                    .defaultSuccessUrl("http://localhost:3000/dashboard", true)
+                    .failureUrl("/login?error=true")
+                );
         return http.build();
     }
 }
